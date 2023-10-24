@@ -4,12 +4,19 @@
 
 <div class="text-center">
     <h1 class="display-4">Dzień dobry</h1>
-    <p>Posegregujmy twoje zgłoszenia</a>.</p>
+    <p>Posegregujmy twoje zgłoszenia.</p>
 </div>
+
+
+<div>
+    Aplikacja będzie zawierać różnego rodzaju dane zgłaszających i będzie sortować je od góry do dołu. <br />
+    Ustawianie priorytetów oraz możliwości zamykania danych zgłoszeń po "realizacji"
+</div>
+
 
 @model LoginGet
 <div>
-    <form asp-action="logowanie" asp-controller="Home" method="post">
+    <form asp-action="Logowanie" asp-controller="Home" method="post">
         Login<br />
         <input type="text" id="login" name="login" /><br />
         Password<br />

@@ -25,9 +25,9 @@ namespace Support2.Controllers
         {
             return View();
         }
-        public IActionResult logowanie(LoginGet model)
+        public IActionResult Logowanie(LoginGet model)
         {
-            if (model.login == "admin" && model.password == "admin")
+            if (model.Login == "admin" && model.Password == "admin")
             {
                 return View("demo");
             }
@@ -36,7 +36,7 @@ namespace Support2.Controllers
                 return View("Error");
             }
         }
-        public IActionResult demo()
+        public IActionResult Demo()
         {
             return View();
         }
