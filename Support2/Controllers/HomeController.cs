@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿
+using Microsoft.AspNetCore.Mvc;
 using Support2.Models;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
@@ -25,18 +26,27 @@ namespace Support2.Controllers
         {
             return View();
         }
+
         public IActionResult Logowanie(LoginGet model)
         {
             if (model.Login == "admin" && model.Password == "admin")
-            {
-                return View("demo");
+            {      
+                return View("LogginIn/Demo");
             }
             else
             {
-                return View("Error");
+                return View("Badlogin");
             }
         }
+        public IActionResult PrivacyL()
+        {
+            return View("LogginIn/PrivacyL");
+        }
         public IActionResult Demo()
+        {
+            return View("LogginIn/Demo");
+        }
+        public ActionResult Badlogin()
         {
             return View();
         }
