@@ -1,0 +1,35 @@
+﻿@model List<Support2.Models.zgloszenial>
+
+    @{
+        ViewData["Title"] = "Zgłoszenia";
+    }
+
+    <h3>@ViewData["Title"]</h3>
+    <hr />
+    <form>
+        <table class="table table-responsive table-hover">
+            <thead>
+                <tr class="table-active">
+                    <th>Id</th>
+                    <th>Imie</th>
+                    <th>Nazwisko</th>
+                    <th>Typ Zgloszenia</th>
+                    <th>Treść zgłoszenia</th>
+                </tr>
+            </thead>
+        </table>
+    </form>
+
+@if (Model != null && Model.Any())
+{
+    @foreach (var Zgloszenial in Model)
+    {
+        <tr>
+            <td>@Zgloszenial.Id</td>
+            <td>@Zgloszenial.Imie</td>
+            <td>@Zgloszenial.Nazwisko</td>
+            <td>@Zgloszenial.Typ_zgloszenia</td>
+            <td>@Zgloszenial.Tresc_zgloszenia</td>
+        </tr>
+    }
+}

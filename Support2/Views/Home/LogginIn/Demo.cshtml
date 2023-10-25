@@ -1,13 +1,48 @@
-﻿@{
+﻿@model List<Support2.Models.zgloszenial>
+@{
     ViewData["Title"] = "DEMO";
     Layout = "LoginLayout";
 }
+
 <h1>@ViewData["Title"]</h1>
 
-<p>Text do testów</p>
-
-To działa
+<p>Poniżej są twoje zgłoszenia</p>
 
 <div>
-    <img src="https://i.pinimg.com/550x/fc/8a/17/fc8a173c0fd13937f70be6e864dd2f36.jpg" />
+    <h3>@ViewData["Title"]</h3>
+    <hr />
+    <form>
+        <table class="table table-responsive table-hover">
+            <thead>
+                <tr class="table-active">
+                    <th>Id</th>
+                    <th>Imie</th>
+                    <th>Nazwisko</th>
+                    <th>Typ Zgloszenia</th>
+                    <th>Treść zgłoszenia</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var zgloszenial in Model)
+                    {
+                        <tr>
+                            <td>@zgloszenial.ID</td>
+                            <td>@zgloszenial.Imie</td>
+                            <td>@zgloszenial.Nazwisko</td>
+                            <td>@zgloszenial.Typ_zgloszenia</td>
+                            <td>@zgloszenial.Tresc_zgloszenia</td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr>
+                        <td colspan="5">Aktualnie nie ma zgłoszeń</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </form>
 </div>
