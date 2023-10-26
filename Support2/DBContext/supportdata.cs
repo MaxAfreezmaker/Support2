@@ -5,7 +5,7 @@ namespace Support2.DBContext
 {
     public class supportdata : DbContext
     {
-        public supportdata(DbContextOptions options) : base(options)
+        public supportdata(DbContextOptions<supportdata> options) : base(options)
         {
         }
         public DbSet<zgloszenial> zgloszenia { get; set; }

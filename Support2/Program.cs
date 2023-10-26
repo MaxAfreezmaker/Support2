@@ -17,6 +17,10 @@ public class Program
 
           builder.Services.AddControllersWithViews();
 
+        builder.Services.AddDbContext<KontaktZglosznenieData>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("YourConnectionString")));
+
+
         // Konfiguracja bazy danych
         builder.Services.AddDbContext<supportdata>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))

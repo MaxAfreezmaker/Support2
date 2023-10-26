@@ -7,19 +7,22 @@ using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
 using System.Security.Cryptography.X509Certificates;
 
+
 namespace Support2.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
         private readonly supportdata _context;
+        private readonly KontaktZglosznenieData _context2;
 
 
-        public HomeController(ILogger<HomeController> logger, supportdata context)
+        public HomeController(ILogger<HomeController> logger, supportdata context, KontaktZglosznenieData context2)
         {
             
             _logger = logger;
             _context = context;
+            _context2 = context2;
         }
 
         public IActionResult Index()
@@ -44,6 +47,20 @@ namespace Support2.Controllers
             {
                 return View("Badlogin");
             }
+        }
+        public IActionResult Kontakt(KontaktZgloszenie model) 
+        {
+            if (ModelState.IsValid)
+            {
+                _context2.KontaktZgloszenieDownload.Add(model); 
+                _context2.SaveChanges(); 
+                return RedirectToAction("Potwierdzenie");
+            }
+            return View(model);
+        }
+        public IActionResult Form_Kontakt()
+        {
+            return View("ThankYouForContact");
         }
         public IActionResult PrivacyL()
         {
