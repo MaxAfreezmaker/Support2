@@ -34,7 +34,7 @@ namespace Support2.Controllers
                                 ID = z.ID,
                                 Imie = z.Imie,
                                 Nazwisko = z.Nazwisko,
-                                Tresc_zgloszenia = z.Tresc_zgloszenia,
+                                opis = z.opis,
                                 Typ_zgloszenia = z.Typ_zgloszenia
                             };
                             return View("Home/LogginIn/Demo", zgloszenial);

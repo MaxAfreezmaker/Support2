@@ -4,27 +4,23 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.DependencyInjection;
 using Support2.DBContext;
 using System;
-using System.Configuration;
 
 public class Program
 {
     public static void Main(string[] args)
     {
-         var builder = WebApplication.CreateBuilder(args);
+        var builder = WebApplication.CreateBuilder(args);
+        builder.Services.AddControllersWithViews();
 
-          builder.Services.AddControllersWithViews();
-
+        // Po³¹czenie do bazy danych "YourConnectionString"
         builder.Services.AddDbContext<KontaktZglosznenieData>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("YourConnectionString")));
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-
-        // Konfiguracja bazy danych
+        // Po³¹czenie do bazy danych "DefaultConnection"
         builder.Services.AddDbContext<supportdata>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
-        );
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
         var app = builder.Build();
 
@@ -38,11 +34,23 @@ public class Program
 
                 if (dbContext.Database.CanConnect())
                 {
-                    Console.WriteLine("Po³¹czenie z baz¹ danych nawi¹zane pomyœlnie.");
+                    Console.WriteLine("Po³¹czenie z baz¹ danych 'supportdata' nawi¹zane pomyœlnie.");
                 }
                 else
                 {
-                    Console.WriteLine("Nie uda³o siê nawi¹zaæ po³¹czenia z baz¹ danych.");
+                    Console.WriteLine("Nie uda³o siê nawi¹zaæ po³¹czenia z baz¹ danych 'supportdata'.");
+                }
+
+                var kontaktDbContext = services.GetRequiredService<KontaktZglosznenieData>();
+                kontaktDbContext.Database.EnsureCreated();
+
+                if (kontaktDbContext.Database.CanConnect())
+                {
+                    Console.WriteLine("Po³¹czenie z baz¹ danych 'KontaktZglosznenieData' nawi¹zane pomyœlnie.");
+                }
+                else
+                {
+                    Console.WriteLine("Nie uda³o siê nawi¹zaæ po³¹czenia z baz¹ danych 'KontaktZglosznenieData'.");
                 }
             }
             catch (Exception ex)

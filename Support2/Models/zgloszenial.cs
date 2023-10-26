@@ -11,10 +11,12 @@ namespace Support2.Models
         public string Imie { get; set; }
         [DisplayName("Nazwisko")]
         public string Nazwisko { get; set; }
+        [DisplayName("Email")]
+        public string email { get; set; }
         [DisplayName("Typ Zgłoszenia")]
-        public ZgloszeniaTypy Typ_zgloszenia { get; set; }
+        public int Typ_zgloszenia { get; set; }
         [DisplayName("Treść zgłoszenia")]
-        public string Tresc_zgloszenia { get; set; }
+        public string opis { get; set; }
         [DisplayName("Imie i Nazwisko")]
         public string FullName
         {

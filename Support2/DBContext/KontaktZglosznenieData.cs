@@ -8,6 +8,6 @@ namespace Support2.DBContext
         public KontaktZglosznenieData(DbContextOptions<KontaktZglosznenieData> options) : base(options)
         {
         }
-        public DbSet<KontaktZgloszenie> KontaktZgloszenieDownload { get; set; }
+        public DbSet<KontaktZgloszenie> zgloszenia { get; set; }
     }
 }

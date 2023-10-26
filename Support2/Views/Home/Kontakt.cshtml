@@ -14,35 +14,29 @@
 
 
 
-@model KontaktZgloszenie
 
-@using (Html.BeginForm("Kontakt", "Home", FormMethod.Post))
-{
-    @Html.LabelFor(m => m.Imie)
-    @Html.TextBoxFor(m => m.Imie)
-
-    @Html.LabelFor(m => m.Nazwisko)
-    @Html.TextBoxFor(m => m.Nazwisko)
-
-    @Html.LabelFor(m => m.email)
-    @Html.TextBoxFor(m => m.email)
-
-    @Html.LabelFor(m => m.opis)
-    @Html.TextAreaFor(m => m.opis)
-
-    <input type="submit" value="Wyślij">
-}
 <div>
-    <form asp-action="Form_Kontakt" asp-controller="Home" method="post">
-        Podaj Imie<br />
-        <input type="text" id="imie" name="imie" required/><br />
-        Podaj Nazwisko<br />
-        <input type="text" id="nazwisko" name="nazwisko" required />
+    @model KontaktZgloszenie
+
+    @using (Html.BeginForm("Kontakt", "Home", FormMethod.Post))
+    
+    {
+        @Html.LabelFor(m => m.Imie)
         <br />
-        Podaj Adres Email<br />
-        <input type="text" id="email" name="email" required /><br />
-        Treść zapytania<br />
-        <textarea style="width:400px; height:200px;" id="tresc" name="tresc" required></textarea><br />
-        <input type="submit" value="Wyślij" />
-    </form>
+        @Html.TextBoxFor(m => m.Imie)
+        <br />
+        @Html.LabelFor(m => m.Nazwisko)
+        <br />
+        @Html.TextBoxFor(m => m.Nazwisko)
+        <br />
+        @Html.LabelFor(m => m.email)
+        <br />
+        @Html.TextBoxFor(m => m.email)
+        <br />
+        @Html.LabelFor(m => m.opis)
+        <br />
+        @Html.TextAreaFor(m => m.opis)
+        <br />
+        <input type="submit" value="Wyślij">
+    }
 </div>

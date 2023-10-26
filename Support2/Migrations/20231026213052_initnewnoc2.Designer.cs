@@ -10,9 +10,9 @@ using Support2.DBContext;
 
 namespace Support2.Migrations
 {
-    [DbContext(typeof(supportdata))]
-    [Migration("20231026181523_PierwszaMigracja")]
-    partial class PierwszaMigracja
+    [DbContext(typeof(KontaktZglosznenieData))]
+    [Migration("20231026213052_initnewnoc2")]
+    partial class initnewnoc2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Support2.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Support2.Models.zgloszenial", b =>
+            modelBuilder.Entity("Support2.Models.KontaktZgloszenie", b =>
                 {
                     b.Property<int>("ID")
                         .ValueGeneratedOnAdd()
@@ -40,12 +40,13 @@ namespace Support2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Tresc_zgloszenia")
+                    b.Property<string>("email")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Typ_zgloszenia")
-                        .HasColumnType("int");
+                    b.Property<string>("opis")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ID");
 

@@ -7,7 +7,7 @@ using Support2.DBContext;
 
 #nullable disable
 
-namespace Support2.Migrations
+namespace Support2.Migrations.supportdataMigrations
 {
     [DbContext(typeof(supportdata))]
     partial class supportdataModelSnapshot : ModelSnapshot
@@ -41,7 +41,11 @@ namespace Support2.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("Typ_zgloszenia")
+                    b.Property<string>("email")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("opis")
                         .HasColumnType("int");
 
                     b.HasKey("ID");

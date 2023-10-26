@@ -52,7 +52,7 @@ namespace Support2.Controllers
         {
             if (ModelState.IsValid)
             {
-                _context2.KontaktZgloszenieDownload.Add(model); 
+                _context2.zgloszenia.Add(model); 
                 _context2.SaveChanges(); 
                 return RedirectToAction("Potwierdzenie");
             }
