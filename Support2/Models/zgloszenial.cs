@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel;
-using System.ComponentModel.DataAnnotations;
 
-namespace Support2.Models.DBentities
+namespace Support2.Models
 {
+
     public class zgloszenial
     {
         [DisplayName("Identyfikator")]
@@ -12,7 +12,7 @@ namespace Support2.Models.DBentities
         [DisplayName("Nazwisko")]
         public string Nazwisko { get; set; }
         [DisplayName("Typ Zgłoszenia")]
-        public int Typ_zgloszenia { get; set; }
+        public ZgloszeniaTypy Typ_zgloszenia { get; set; }
         [DisplayName("Treść zgłoszenia")]
         public string Tresc_zgloszenia { get; set; }
         [DisplayName("Imie i Nazwisko")]

@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Support2.Models.DBentities;
+using Support2.Models;
 
 namespace Support2.DBContext
 {
@@ -8,6 +8,6 @@ namespace Support2.DBContext
         public supportdata(DbContextOptions options) : base(options)
         {
         }
-        public DbSet<zgloszenial> zgloszenia { get; set;}
+        public DbSet<zgloszenial> zgloszenia { get; set; }
     }
 }

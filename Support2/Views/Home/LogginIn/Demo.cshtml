@@ -11,6 +11,20 @@
 <div>
     <h3>@ViewData["Title"]</h3>
     <hr />
+
+    @if (Model != null && Model.Any())
+    {
+        // Wyświetl dane
+        foreach (var zgloszenial in Model)
+        {
+            <p>@zgloszenial.ID, @zgloszenial.Imie, @zgloszenial.Nazwisko</p>
+        }
+    }
+    else
+    {
+        <p>Aktualnie nie ma zgłoszeń</p>
+    }
+
     <form>
         <table class="table table-responsive table-hover">
             <thead>
@@ -44,5 +58,5 @@
                 }
             </tbody>
         </table>
-    </form>
+    </form> 
 </div>

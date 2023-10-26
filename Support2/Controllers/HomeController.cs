@@ -1,5 +1,7 @@
 ﻿
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using Support2.DBContext;
 using Support2.Models;
 using System.Diagnostics;
 using System.Diagnostics.Eventing.Reader;
@@ -10,10 +12,14 @@ namespace Support2.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly supportdata _context;
 
-        public HomeController(ILogger<HomeController> logger)
+
+        public HomeController(ILogger<HomeController> logger, supportdata context)
         {
+            
             _logger = logger;
+            _context = context;
         }
 
         public IActionResult Index()
@@ -26,12 +32,13 @@ namespace Support2.Controllers
         {
             return View();
         }
-
         public IActionResult Logowanie(LoginGet model)
         {
             if (model.Login == "admin" && model.Password == "admin")
             {      
+                
                 return View("LogginIn/Demo");
+
             }
             else
             {
