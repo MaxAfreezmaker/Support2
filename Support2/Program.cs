@@ -1,11 +1,13 @@
-using Microsoft.Extensions.Configuration;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Support2.Areas.Identity.Data;
+using Support2.Data;
 using Support2.DBContext;
 using System;
+using System.Configuration;
 
 public class Program
 {
@@ -14,51 +16,28 @@ public class Program
         var builder = WebApplication.CreateBuilder(args);
         builder.Services.AddControllersWithViews();
 
-        // Po³¹czenie do bazy danych "YourConnectionString"
+        // PoÅ‚Ä…czenie do bazy danych "YourConnectionString"
         builder.Services.AddDbContext<KontaktZglosznenieData>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-        // Po³¹czenie do bazy danych "DefaultConnection"
+        // PoÅ‚Ä…czenie do bazy danych "DefaultConnection"
         builder.Services.AddDbContext<supportdata>(options =>
             options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
+        // PodÅ‚Ä…czenie Logowania/Rejestrownia
+        builder.Services.AddDbContext<Support2Context>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+
+        builder.Services.AddDefaultIdentity<Support2User>(options =>
+        {
+            options.SignIn.RequireConfirmedAccount = true;
+        })
+            .AddEntityFrameworkStores<Support2Context>();
+
         var app = builder.Build();
 
-        using (var scope = app.Services.CreateScope())
-        {
-            var services = scope.ServiceProvider;
-            try
-            {
-                var dbContext = services.GetRequiredService<supportdata>();
-                dbContext.Database.EnsureCreated(); // Tworzenie bazy danych (jeœli nie istnieje)
-
-                if (dbContext.Database.CanConnect())
-                {
-                    Console.WriteLine("Po³¹czenie z baz¹ danych 'supportdata' nawi¹zane pomyœlnie.");
-                }
-                else
-                {
-                    Console.WriteLine("Nie uda³o siê nawi¹zaæ po³¹czenia z baz¹ danych 'supportdata'.");
-                }
-
-                var kontaktDbContext = services.GetRequiredService<KontaktZglosznenieData>();
-                kontaktDbContext.Database.EnsureCreated();
-
-                if (kontaktDbContext.Database.CanConnect())
-                {
-                    Console.WriteLine("Po³¹czenie z baz¹ danych 'KontaktZglosznenieData' nawi¹zane pomyœlnie.");
-                }
-                else
-                {
-                    Console.WriteLine("Nie uda³o siê nawi¹zaæ po³¹czenia z baz¹ danych 'KontaktZglosznenieData'.");
-                }
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Wyst¹pi³ b³¹d podczas próby nawi¹zania po³¹czenia z baz¹ danych:");
-                Console.WriteLine(ex.Message);
-            }
-        }
+        // The rest of your code remains unchanged
 
         if (!app.Environment.IsDevelopment())
         {
@@ -71,6 +50,7 @@ public class Program
 
         app.UseRouting();
 
+        app.UseAuthentication(); // Add this line to enable authentication
         app.UseAuthorization();
 
         app.MapControllerRoute(
