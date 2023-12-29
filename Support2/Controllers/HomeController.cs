@@ -1,6 +1,9 @@
 ﻿
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Support2.Areas.Identity.Data;
 using Support2.DBContext;
 using Support2.Models;
 using System.Diagnostics;
@@ -15,14 +18,15 @@ namespace Support2.Controllers
         private readonly ILogger<HomeController> _logger;
         private readonly supportdata _context;
         private readonly KontaktZglosznenieData _context2;
+        private readonly SignInManager<Support2User> _signInManager;
 
-
-        public HomeController(ILogger<HomeController> logger, supportdata context, KontaktZglosznenieData context2)
+        public HomeController(ILogger<HomeController> logger, supportdata context, KontaktZglosznenieData context2, SignInManager<Support2User> signInManager)
         {
             
             _logger = logger;
             _context = context;
             _context2 = context2;
+            _signInManager = signInManager;
         }
 
         public IActionResult Index()
@@ -35,7 +39,7 @@ namespace Support2.Controllers
         {
             return View();
         }
-        public IActionResult Logowanie(LoginGet model)
+      /*  public IActionResult Logowanie(LoginGet model)
         {
             if (model.Login == "admin" && model.Password == "admin")
             {      
@@ -47,7 +51,7 @@ namespace Support2.Controllers
             {
                 return View("Badlogin");
             }
-        }
+        }*/
         public IActionResult Kontakt(KontaktZgloszenie model) 
         {
             if (ModelState.IsValid)
@@ -66,17 +70,31 @@ namespace Support2.Controllers
         {
             return View("LogginIn/PrivacyL");
         }
-        public IActionResult Demo()
+        //     public IActionResult Demo()
+        //       {
+        //          return View("LogginIn/Demo");
+        //     }
+        //    public ActionResult Badlogin()
+        //    {
+        //        return View();
+        //    }
+        [Area("Identity")]
+        public async Task<IActionResult> Logout()
         {
-            return View("LogginIn/Demo");
-        }
-        public ActionResult Badlogin()
-        {
-            return View();
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
 
+        public IActionResult Login()
+        {
+            return RedirectToAction("Login", "Home", new { area = "Identity" });
+        }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Register()
+        {
+            return RedirectToAction("Register", "Home", new { area = "Identity" });
+        }
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
